@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 
+import com.example.demo.Model.Beneficiaire;
 import com.example.demo.Model.Compte;
 import com.example.demo.Service.BeneficiaireService;
 import com.example.demo.Service.CompteService;
@@ -24,6 +25,11 @@ public class EbankController {
     @GetMapping("/comptes")
     public ArrayList<Compte> showComptes(){
         return compteSrv.showAllCompte();
+    }
+
+    @PostMapping("/beneficiaire")
+    public Beneficiaire addBeneficiaire(@RequestBody Beneficiaire beneficiaire){
+        return beneficiaireService.addBeneficiaire(beneficiaire);
     }
 
 
