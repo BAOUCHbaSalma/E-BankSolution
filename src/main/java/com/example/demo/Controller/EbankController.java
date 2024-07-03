@@ -35,6 +35,10 @@ public class EbankController {
     public ArrayList<Beneficiaire> showBeneficiaire(){
         return beneficiaireService.showAllBeneficiaire();
     }
+    @DeleteMapping("/beneficiaire/{id}")
+    public void deleteBeneficiaire(Integer id){
+        beneficiaireService.deleteBeneficiaire(id);
+    }
 
 
 }

@@ -18,4 +18,7 @@ public Beneficiaire addBeneficiaire(Beneficiaire beneficiaire){
 public ArrayList<Beneficiaire> showAllBeneficiaire(){
     return (ArrayList<Beneficiaire>) beneficiaireRepository.findAll();
 }
+public void deleteBeneficiaire(Integer id){
+    beneficiaireRepository.deleteById(id);
+}
 }
