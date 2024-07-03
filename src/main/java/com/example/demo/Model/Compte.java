@@ -49,12 +49,13 @@ public class Compte {
     private List<Transaction> listOfTransaction;
 
 
-    public Compte( LocalDate dateCreation, Integer numeroCompte, Integer solde, String status, String typeCompte, Integer user) {
+    public Compte( LocalDate dateCreation, Integer numeroCompte, Integer solde, String status, String typeCompte, User user) {
         this.typeCompte = typeCompte;
         this.solde = solde;
         this.dateCreation = dateCreation;
         this.status = status;
         this.numeroCompte = numeroCompte;
+        this.user=user;
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.Model.Compte;
+import com.example.demo.Model.User;
 import com.example.demo.Service.CompteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,9 @@ class DemoApplicationTests {
 	private CompteService compteService;
 @Test
 	public void addCompteTest() {
-		Compte compte = new Compte(LocalDate.now(), 123456, 1000, "active", "courant", 1);
+	User user = new User();
+	user.setIdUsser(1);
+		Compte compte = new Compte(LocalDate.now(), 123456, 1000, "active", "courant", user);
 		Compte savedCompte = compteService.addCompte(compte);
 
 		assertNotNull(savedCompte.getIdCompte());
@@ -27,6 +30,7 @@ class DemoApplicationTests {
 	  assertEquals(1000, savedCompte.getSolde());
 	  assertEquals("active", savedCompte.getStatus());
 	   assertEquals(123456, savedCompte.getNumeroCompte());
+	   assertEquals(1,savedCompte.getUser().getIdUsser());
 
 	}
 	@Test
