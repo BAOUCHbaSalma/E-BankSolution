@@ -31,6 +31,10 @@ public class EbankController {
     public Beneficiaire addBeneficiaire(@RequestBody Beneficiaire beneficiaire){
         return beneficiaireService.addBeneficiaire(beneficiaire);
     }
+    @GetMapping("/beneficiaires")
+    public ArrayList<Beneficiaire> showBeneficiaire(){
+        return beneficiaireService.showAllBeneficiaire();
+    }
 
 
 }
