@@ -34,6 +34,8 @@ public class Compte {
     private String status;
     @Column
     private Integer numeroCompte;
+    @Column
+    private String raisonFermeture;
 
     @OneToMany(mappedBy = "compte")
     @JsonIgnore

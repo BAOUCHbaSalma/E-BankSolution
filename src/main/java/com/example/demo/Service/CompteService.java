@@ -21,5 +21,14 @@ public class CompteService {
     public Integer ConsulterSoldeCompte(Integer id){
         return compteR.findSoldeByIdCompte(id);
     }
+    public Compte findCompteById(Integer id){
+        return compteR.findById(id).orElseThrow();
+    }
+    public Compte fermetureCompte(Integer id,Compte compte){
+        Compte compte1=findCompteById(id);
+        compte1.setStatus(compte.getStatus());
+        compte1.setRaisonFermeture(compte.getRaisonFermeture());
+        return compteR.save(compte1);
+    }
 
 }

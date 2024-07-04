@@ -47,6 +47,11 @@ public class EbankController {
     public Integer findSoldeByIdCompte(@PathVariable Integer id){
         return compteSrv.ConsulterSoldeCompte(id);
     }
+    @PutMapping("/compte/{id}/status")
+    public Compte closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
+        return compteSrv.fermetureCompte(id,compte);
+
+    }
 
 
 }
