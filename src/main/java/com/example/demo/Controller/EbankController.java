@@ -36,8 +36,12 @@ public class EbankController {
         return beneficiaireService.showAllBeneficiaire();
     }
     @DeleteMapping("/beneficiaire/{id}")
-    public void deleteBeneficiaire(Integer id){
+    public void deleteBeneficiaire(@PathVariable Integer id){
         beneficiaireService.deleteBeneficiaire(id);
+    }
+    @PutMapping("/beneficiaire/{id}")
+    public Beneficiaire updateBeneficiaire(@PathVariable Integer id,@RequestBody Beneficiaire beneficiaire){
+       return beneficiaireService.updateBeneficiaire(id,beneficiaire);
     }
 
 

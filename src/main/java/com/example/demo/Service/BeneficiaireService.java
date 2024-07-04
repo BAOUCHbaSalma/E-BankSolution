@@ -21,4 +21,14 @@ public ArrayList<Beneficiaire> showAllBeneficiaire(){
 public void deleteBeneficiaire(Integer id){
     beneficiaireRepository.deleteById(id);
 }
+public Beneficiaire recupaireById(Integer id){
+    return beneficiaireRepository.findById(id).orElseThrow();
+}
+public Beneficiaire updateBeneficiaire(Integer id,Beneficiaire beneficiaire){
+    Beneficiaire beneficiaire1= recupaireById(id);
+    beneficiaire1.setNomBeneficiaire(beneficiaire.getNomBeneficiaire());
+    beneficiaire1.setBanque(beneficiaire.getBanque());
+    beneficiaire1.setNumeroCompte(beneficiaire.getNumeroCompte());
+   return beneficiaireRepository.save(beneficiaire1);
+}
 }
