@@ -4,8 +4,10 @@ package com.example.demo.Controller;
 import com.example.demo.Model.Beneficiaire;
 import com.example.demo.Model.Compte;
 import com.example.demo.Model.CompteRequest;
+import com.example.demo.Model.User;
 import com.example.demo.Service.BeneficiaireService;
 import com.example.demo.Service.CompteService;
+import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +20,23 @@ public class EbankController {
        private CompteService compteSrv;
     @Autowired
     private BeneficiaireService beneficiaireService;
+    @Autowired
+    private UserService userService;
 
-    @PostMapping("/compte")
-    public Compte addCompte(@RequestBody CompteRequest compteRequest) {
-        System.out.println("///////////////"+compteRequest.getCompte().getUser().getIdUsser());
-        System.out.println("///////////////"+compteRequest.getCompte().getTypeCompte());
-        return compteSrv.addCompte(compteRequest.getCompte(), compteRequest.getTypeCarte());
 
+    @PostMapping("/user")
+    public User addUser(@RequestBody CompteRequest compteRequest){
+        return  userService.addUser(compteRequest.getUser(), compteRequest.getTypeCompte(), compteRequest.getTypeCarte());
     }
+
+
+//    @PostMapping("/compte")
+//    public Compte addCompte(@RequestBody CompteRequest compteRequest) {
+//        System.out.println("///////////////"+compteRequest.getCompte().getUser().getIdUsser());
+//        System.out.println("///////////////"+compteRequest.getCompte().getTypeCompte());
+//        return compteSrv.addCompte(compteRequest.getCompte(), compteRequest.getTypeCarte());
+//
+//    }
 
     @GetMapping("/comptes")
     public ArrayList<Compte> showComptes(){

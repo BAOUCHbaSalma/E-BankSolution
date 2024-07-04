@@ -10,6 +10,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompteRequest {
-    private Compte compte;
+//    private Compte compte;
+    private User user;
     private String typeCarte;
+    private String typeCompte;
+
 }

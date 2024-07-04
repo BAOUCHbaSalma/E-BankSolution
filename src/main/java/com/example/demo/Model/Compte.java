@@ -32,7 +32,7 @@ public class Compte {
     @Column
     private String status;
     @Column
-    private Integer numeroCompte;
+    private String numeroCompte;
     @Column
     private String raisonFermeture;
 
@@ -50,7 +50,7 @@ public class Compte {
     private List<Transaction> listOfTransaction;
 
 
-    public Compte( LocalDate dateCreation, Integer numeroCompte, Integer solde, String status, String typeCompte, User user) {
+    public Compte( LocalDate dateCreation, String numeroCompte, Integer solde, String status, String typeCompte, User user) {
         this.typeCompte = typeCompte;
         this.solde = solde;
         this.dateCreation = dateCreation;

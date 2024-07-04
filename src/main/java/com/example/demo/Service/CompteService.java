@@ -17,35 +17,67 @@ public class CompteService {
     CompteRepository compteR;
     @Autowired
     CarteBancaireRepository carteBancaireRepository;
-    public Compte addCompte(Compte compte, String typeCarte){
-        Compte cmpt=compteR.save(compte);
-        System.out.print("//////////////"+ compte.getIdCompte()+"/////////////"+compte.getTypeCompte()+"////////////////"+compte.getDateCreation());
-        CarteBancaire carteBancaire = new CarteBancaire();
-        carteBancaire.setNumero(generateCardNumber());
-        carteBancaire.setStatus("Activer");
-        carteBancaire.setTypeCarte(typeCarte);
-        carteBancaire.setDateExpiration(LocalDate.now().plusYears(3)); // Date d'expiration après 3 ans
-        carteBancaire.setCompte(cmpt);
-        carteBancaireRepository.save(carteBancaire);
-        return cmpt;
-    }
+
+    //===========> Pour générer une carte apres l'ajout d'un compte
+
+    //___________________________________________________________________________________________
+//    public Compte addCompte(Compte compte, String typeCarte){
+//        Compte cmpt=compteR.save(compte);
+//        System.out.print("//////////////"+ compte.getIdCompte()+"/////////////"+compte.getTypeCompte()+"////////////////"+compte.getDateCreation());
+//        CarteBancaire carteBancaire = new CarteBancaire();
+//        carteBancaire.setNumero(generateCardNumber());
+//        carteBancaire.setStatus("Activer");
+//        carteBancaire.setTypeCarte(typeCarte);
+//        carteBancaire.setDateExpiration(LocalDate.now().plusYears(3)); // Date d'expiration après 3 ans
+//        carteBancaire.setCompte(cmpt);
+//        carteBancaireRepository.save(carteBancaire);
+//        return cmpt;
+//    }
+
+
+    //_____________________________________________________________________________________
+
+    //=================>Pour Afficher tous les comptes
+
+    //______________________________________________________________________________________
     public ArrayList<Compte>showAllCompte(){
         return (ArrayList<Compte>) compteR.findAll();
     }
+    //________________________________________________________________________________________
+
+    //=================>Pour Afficher le solde d'un compte
+
+    //________________________________________________________________________________________
     public Integer ConsulterSoldeCompte(Integer id){
         return compteR.findSoldeByIdCompte(id);
     }
+    //_________________________________________________________________________________________
+
+    //===================>Pour Trouver un compte par id
+
+    //_________________________________________________________________________________________
     public Compte findCompteById(Integer id){
         return compteR.findById(id).orElseThrow();
     }
+    //_________________________________________________________________________________________
+
+    //==================>Pour fermer un compte
+
+    //_________________________________________________________________________________________
     public Compte fermetureCompte(Integer id,Compte compte){
         Compte compte1=findCompteById(id);
         compte1.setStatus("Fermer");
         compte1.setRaisonFermeture(compte.getRaisonFermeture());
         return compteR.save(compte1);
     }
+    //_________________________________________________________________________________________
+
+    //================>Pour generer un string 
+
+    //_________________________________________________________________________________________
     private String generateCardNumber() {
         return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
     }
+    //_________________________________________________________________________________________
 
 }
