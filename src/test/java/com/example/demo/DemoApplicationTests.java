@@ -23,7 +23,7 @@ class DemoApplicationTests {
 	User user = new User();
 	user.setIdUsser(1);
 		Compte compte = new Compte(LocalDate.now(), 123456, 1000, "active", "courant", user);
-		Compte savedCompte = compteService.addCompte(compte);
+		Compte savedCompte = compteService.addCompte(compte,"Debit");
 
 		assertNotNull(savedCompte.getIdCompte());
 

@@ -17,12 +17,13 @@ public class CompteService {
     CompteRepository compteR;
     @Autowired
     CarteBancaireRepository carteBancaireRepository;
-    public Compte addCompte(Compte compte){
+    public Compte addCompte(Compte compte, String typeCarte){
         Compte cmpt=compteR.save(compte);
         System.out.print("//////////////"+ compte.getIdCompte()+"/////////////"+compte.getTypeCompte()+"////////////////"+compte.getDateCreation());
         CarteBancaire carteBancaire = new CarteBancaire();
         carteBancaire.setNumero(generateCardNumber());
         carteBancaire.setStatus("Activer");
+        carteBancaire.setTypeCarte(typeCarte);
         carteBancaire.setDateExpiration(LocalDate.now().plusYears(3)); // Date d'expiration après 3 ans
         carteBancaire.setCompte(cmpt);
         carteBancaireRepository.save(carteBancaire);
