@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class Compte {
     private User user;
     @OneToMany(mappedBy = "compte")
     @JsonIgnore
-    private List<carteBancaire> listOfCarteBancaires;
+    private List<CarteBancaire> listOfCarteBancaires;
     @OneToMany(mappedBy = "compte")
     @JsonIgnore
     private List<Transaction> listOfTransaction;

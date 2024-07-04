@@ -13,12 +13,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class carteBancaire {
+public class CarteBancaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCarte;
     @Column
-    private Integer numero;
+    private String numero;
     @Column
     private LocalDate dateExpiration;
     @Column
