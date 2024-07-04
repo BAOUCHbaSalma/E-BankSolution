@@ -18,5 +18,8 @@ public class CompteService {
     public ArrayList<Compte>showAllCompte(){
         return (ArrayList<Compte>) compteR.findAll();
     }
+    public Integer ConsulterSoldeCompte(Integer id){
+        return compteR.findSoldeByIdCompte(id);
+    }
 
 }

@@ -43,6 +43,10 @@ public class EbankController {
     public Beneficiaire updateBeneficiaire(@PathVariable Integer id,@RequestBody Beneficiaire beneficiaire){
        return beneficiaireService.updateBeneficiaire(id,beneficiaire);
     }
+    @GetMapping("/compte/{id}")
+    public Integer findSoldeByIdCompte(@PathVariable Integer id){
+        return compteSrv.ConsulterSoldeCompte(id);
+    }
 
 
 }
