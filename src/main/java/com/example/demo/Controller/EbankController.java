@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,17 +123,51 @@ public class EbankController {
     //****************************************************************************************
 @PostMapping("/transaction/{idCompte}")
     public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
-    System.out.println("////////"+transaction.getMontant());
-       Compte compte = compteSrv.findCompteById(idCompte);
-        if (transaction.getMontant()>compte.getSolde()){
 
-            return "Impossible de transverer ce montant";
-        }else {
+       Compte compte = compteSrv.findCompteById(idCompte);
+        if ("Transfert externe".equals(transaction.getTypeTransaction()) &&
+        transaction.getMontant() > compte.getSolde()){
+
+        return "Impossible de transférer ce montant";
+
+        }else if("Transfert externe".equals(transaction.getTypeTransaction()) &&
+         transaction.getMontant() <= compte.getSolde()){
+         transaction.setDateTransaction(LocalDate.now());
+         transaction.setHeursTransaction(LocalTime.now());
+         transaction.setCompte(compte);
+          transactionService.addTransaction(transaction);
+          Integer solde=compte.getSolde()-transaction.getMontant();
+          compteSrv.updateSolde(idCompte,solde);
+          return transaction.getMontant() + "Dh transféré avec succès à " + transaction.getBeneficiaire().getNomBeneficiaire();
+
+        } else if("Transfert interne".equals(transaction.getTypeTransaction()) &&
+          transaction.getMontant() <= compte.getSolde()){
+
+            Compte compte1=compteSrv.findCompteById(idCompte);
+            transaction.setDateTransaction(LocalDate.now());
+            transaction.setBanque("Ebank");
+            transaction.setHeursTransaction(LocalTime.now());
             transaction.setCompte(compte);
             transactionService.addTransaction(transaction);
-          Integer solde=compte.getSolde()-transaction.getMontant();
+            Integer solde=compte.getSolde()-transaction.getMontant();
             compteSrv.updateSolde(idCompte,solde);
-            return transaction.getMontant() + "Dh transféré avec succès à " + transaction.getBeneficiaire().getNomBeneficiaire();
+            return transaction.getMontant() + "Dh transféré avec succès à "+compte1.getUser().getNomUser();
+
+        } else if("Transfert interne".equals(transaction.getTypeTransaction()) &&
+          transaction.getMontant() > compte.getSolde()){
+
+            return "Impossible de transférer ce montant";
+
+        }
+        else{
+            transaction.setDateTransaction(LocalDate.now());
+            transaction.setBanque("Ebank");
+            transaction.setHeursTransaction(LocalTime.now());
+            transaction.setCompte(compte);
+            Integer solde=compte.getSolde()+transaction.getMontant();
+            compteSrv.updateSolde(idCompte,solde);
+            transactionService.addTransaction(transaction);
+            return "Débit ajouté avec succès";
         }
 
 
