@@ -102,8 +102,20 @@ public class EbankController {
     //_________________________________________________________________________________________
     //*****************************************************************************************
     @PutMapping("/compte/{id}/status")
-    public Compte closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
-        return compteSrv.fermetureCompte(id,compte);
+    public String closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
+      Compte compte1=compteSrv.findCompteById(id);
+      if (compte1.getSolde()>=0){
+
+          compteSrv.fermetureCompte(id,compte);
+          return "Compte fermé avec succès";
+
+      }else {
+
+         return  "Impossible de fermer ce compte a cause de votre solde";
+
+      }
+
+
     }
     //________________________________________________________________________________________
     //****************************************************************************************
