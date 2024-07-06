@@ -1,12 +1,10 @@
 package com.example.demo.Controller;
 
 
-import com.example.demo.Model.Beneficiaire;
-import com.example.demo.Model.Compte;
-import com.example.demo.Model.CompteRequest;
-import com.example.demo.Model.User;
+import com.example.demo.Model.*;
 import com.example.demo.Service.BeneficiaireService;
 import com.example.demo.Service.CompteService;
+import com.example.demo.Service.TransactionService;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +21,8 @@ public class EbankController {
     private BeneficiaireService beneficiaireService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TransactionService transactionService;
 
 
      //===========>Ajouter user___________________________________________________________
@@ -119,7 +119,23 @@ public class EbankController {
     }
     //________________________________________________________________________________________
     //****************************************************************************************
+@PostMapping("/transaction/{idCompte}")
+    public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
+    System.out.println("////////"+transaction.getMontant());
+       Compte compte = compteSrv.findCompteById(idCompte);
+        if (transaction.getMontant()>compte.getSolde()){
 
+            return "Impossible de transverer ce montant";
+        }else {
+            transaction.setCompte(compte);
+            transactionService.addTransaction(transaction);
+          Integer solde=compte.getSolde()-transaction.getMontant();
+            compteSrv.updateSolde(idCompte,solde);
+            return transaction.getMontant() + "Dh transféré avec succès à " + transaction.getBeneficiaire().getNomBeneficiaire();
+        }
+
+
+}
 
 }
 

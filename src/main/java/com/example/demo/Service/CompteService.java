@@ -83,5 +83,10 @@ public class CompteService {
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
+    public Compte updateSolde(Integer idCompte,Integer solde){
+        Compte compte=findCompteById(idCompte);
+        compte.setSolde(solde);
+         return compteR.save(compte);
 
+    }
 }
