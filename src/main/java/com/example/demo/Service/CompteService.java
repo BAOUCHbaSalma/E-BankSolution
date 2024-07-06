@@ -50,11 +50,12 @@ public class CompteService {
 
     //======>Pour Afficher le solde d'un compte_______________________________________________
     //*****************************************************************************************
-    public Integer ConsulterSoldeCompte(Integer id){
+    public Double ConsulterSoldeCompte(Integer id){
         return compteR.findSoldeByIdCompte(id);
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
+
 
     //======>Pour Trouver un compte par id____________________________________________________
     //*****************************************************************************************
@@ -64,14 +65,25 @@ public class CompteService {
     //_________________________________________________________________________________________
     //******************************************************************************************
 
+
     //======>Pour fermer un compte_____________________________________________________________
     //*****************************************************************************************
-    public Compte fermetureCompte(Integer id,Compte compte){
+    public String fermetureCompte(Integer id,Compte compte){
         Compte compte1=findCompteById(id);
-        compte1.setStatus("Fermer");
-        compte1.setRaisonFermeture(compte.getRaisonFermeture());
-        return compteR.save(compte1);
+        if (compte1.getSolde()>=0) {
+            compte1.setStatus("Fermer");
+            compte1.setRaisonFermeture(compte.getRaisonFermeture());
+            compteR.save(compte1);
+            return "Compte fermé avec succès";
+        }else {
+
+            return  "Impossible de fermer ce compte a cause de votre solde";
+
+        }
+
     }
+
+
     //_________________________________________________________________________________________
     //******************************************************************************************
 
@@ -83,10 +95,16 @@ public class CompteService {
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
-    public Compte updateSolde(Integer idCompte,Integer solde){
+
+
+    //=====>Update Solde By id Compte__________________________________________________________
+    //*****************************************************************************************
+    public Compte updateSolde(Integer idCompte,Double solde){
         Compte compte=findCompteById(idCompte);
         compte.setSolde(solde);
          return compteR.save(compte);
 
     }
+    //_________________________________________________________________________________________
+    //******************************************************************************************
 }

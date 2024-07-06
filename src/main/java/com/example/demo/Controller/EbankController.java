@@ -98,84 +98,20 @@ public class EbankController {
     //=========>Afficher Solde d'un compte_____________________________________________________
     //*****************************************************************************************
     @GetMapping("/compte/{id}/solde")
-    public Integer findSoldeByIdCompte(@PathVariable Integer id){
+    public Double findSoldeByIdCompte(@PathVariable Integer id){
         return compteSrv.ConsulterSoldeCompte(id);
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
     @PutMapping("/compte/{id}/status")
     public String closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
-      Compte compte1=compteSrv.findCompteById(id);
-      if (compte1.getSolde()>=0){
-
-          compteSrv.fermetureCompte(id,compte);
-          return "Compte fermé avec succès";
-
-      }else {
-
-         return  "Impossible de fermer ce compte a cause de votre solde";
-
-      }
-
-
+        return compteSrv.fermetureCompte(id,compte);
     }
     //________________________________________________________________________________________
     //****************************************************************************************
 @PostMapping("/transaction/{idCompte}")
     public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
-
-       Compte compte = compteSrv.findCompteById(idCompte);
-       if(transaction.getMontant() != 0){
-        if ("Transfert externe".equals(transaction.getTypeTransaction()) &&
-        transaction.getMontant() > compte.getSolde()){
-
-        return "Impossible de transférer ce montant";
-
-        }else if("Transfert externe".equals(transaction.getTypeTransaction()) &&
-         transaction.getMontant() <= compte.getSolde()){
-         transaction.setDateTransaction(LocalDate.now());
-         transaction.setHeursTransaction(LocalTime.now());
-         transaction.setCompte(compte);
-          transactionService.addTransaction(transaction);
-          Integer solde=compte.getSolde()-transaction.getMontant();
-          compteSrv.updateSolde(idCompte,solde);
-          return transaction.getMontant() + "Dh transféré avec succès à " + transaction.getBeneficiaire().getNomBeneficiaire();
-
-        } else if("Transfert interne".equals(transaction.getTypeTransaction()) &&
-          transaction.getMontant() <= compte.getSolde()){
-
-            Compte compte1=compteSrv.findCompteById(idCompte);
-            transaction.setDateTransaction(LocalDate.now());
-            transaction.setBanque("Ebank");
-            transaction.setHeursTransaction(LocalTime.now());
-            transaction.setCompte(compte);
-            transactionService.addTransaction(transaction);
-            Integer solde=compte.getSolde()-transaction.getMontant();
-            compteSrv.updateSolde(idCompte,solde);
-            return transaction.getMontant() + "Dh transféré avec succès à "+compte1.getUser().getNomUser();
-
-        } else if("Transfert interne".equals(transaction.getTypeTransaction()) &&
-          transaction.getMontant() > compte.getSolde()){
-
-            return "Impossible de transférer ce montant";
-
-        }
-        else{
-            transaction.setDateTransaction(LocalDate.now());
-            transaction.setBanque("Ebank");
-            transaction.setHeursTransaction(LocalTime.now());
-            transaction.setCompte(compte);
-            Integer solde=compte.getSolde()+transaction.getMontant();
-            compteSrv.updateSolde(idCompte,solde);
-            transactionService.addTransaction(transaction);
-            return "Débit ajouté avec succès";
-        }
-       }else {
-           return "Impossible de transférer ou poser ce montant";
-
-       }
-
-
+       return transactionService.addTransaction(idCompte,transaction);
 }
 
 }

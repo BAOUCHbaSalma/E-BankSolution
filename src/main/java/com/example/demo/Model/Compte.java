@@ -25,7 +25,7 @@ public class Compte {
     @Column
     private String typeCompte;
     @Column
-    private Integer solde;
+    private Double solde;
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateCreation;
@@ -50,7 +50,7 @@ public class Compte {
     private List<Transaction> listOfTransaction;
 
 
-    public Compte( LocalDate dateCreation, String numeroCompte, Integer solde, String status, String typeCompte, User user) {
+    public Compte( LocalDate dateCreation, String numeroCompte, Double solde, String status, String typeCompte, User user) {
         this.typeCompte = typeCompte;
         this.solde = solde;
         this.dateCreation = dateCreation;

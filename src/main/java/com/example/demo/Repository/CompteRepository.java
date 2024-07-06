@@ -14,7 +14,7 @@ public interface CompteRepository extends JpaRepository<Compte,Integer> {
     //====>Afficher Solde par idCompte____________________________________________
     //****************************************************************************
     @Query("SELECT c.solde FROM Compte c WHERE c.idCompte= :id")
-    Integer findSoldeByIdCompte(@Param("id") Integer id);
+    Double findSoldeByIdCompte(@Param("id") Integer id);
     //____________________________________________________________________________
     //*****************************************************************************
 
