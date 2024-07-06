@@ -2,10 +2,7 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.Model.*;
-import com.example.demo.Service.BeneficiaireService;
-import com.example.demo.Service.CompteService;
-import com.example.demo.Service.TransactionService;
-import com.example.demo.Service.UserService;
+import com.example.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +22,8 @@ public class EbankController {
     private UserService userService;
     @Autowired
     private TransactionService transactionService;
+    @Autowired
+    private CarteBancaireService carteBancaireService;
 
 
      //===========>Ajouter user___________________________________________________________
@@ -119,12 +118,22 @@ public class EbankController {
     //________________________________________________________________________________________
     //****************************************************************************************
 
-    
+
     //=====>Afficher Transactions d'un compte___________________________________________________
     //****************************************************************************************
     @GetMapping("/transactions/{idCompte}")
     public List<Transaction> showAllTransactionByIdCompte(@PathVariable Integer idCompte){
         return transactionService.showTransactionByIdCompte(idCompte);
+    }
+    //________________________________________________________________________________________
+    //****************************************************************************************
+
+
+    //=====>Afficher Details d'une carte___________________________________________________
+    //****************************************************************************************
+    @GetMapping("/carte/{idCarte}")
+    public CarteBancaire showDetailsByIdCard(@PathVariable Integer idCarte){
+        return carteBancaireService.showDetailsCard(idCarte);
     }
     //________________________________________________________________________________________
     //****************************************************************************************
