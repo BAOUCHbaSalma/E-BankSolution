@@ -6,8 +6,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CompteRepository extends JpaRepository<Compte,Integer> {
+
+    //====>Afficher Solde par idCompte____________________________________________
+    //****************************************************************************
     @Query("SELECT c.solde FROM Compte c WHERE c.idCompte= :id")
     Integer findSoldeByIdCompte(@Param("id") Integer id);
+    //____________________________________________________________________________
+    //*****************************************************************************
+
+
+    //=======>Afficher Comptes par IdUser_________________________________________
+    //****************************************************************************
+    List<Compte> findAllByUser_IdUsserAndStatus(Integer userId, String status);
+
+    //____________________________________________________________________________
+    //****************************************************************************
+
 }

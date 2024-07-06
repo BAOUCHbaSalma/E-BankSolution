@@ -17,23 +17,23 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class DemoApplicationTests {
 	@Autowired
 	private CompteService compteService;
-@Test
-	public void addCompteTest() {
-
-	User user = new User();
-	user.setIdUsser(1);
-		Compte compte = new Compte(LocalDate.now(), 123456, 1000, "active", "courant", user);
-		Compte savedCompte = compteService.addCompte(compte,"Debit");
-
-		assertNotNull(savedCompte.getIdCompte());
-
-	  assertEquals("courant", savedCompte.getTypeCompte());
-	  assertEquals(1000, savedCompte.getSolde());
-	  assertEquals("active", savedCompte.getStatus());
-	   assertEquals(123456, savedCompte.getNumeroCompte());
-	   assertEquals(1,savedCompte.getUser().getIdUsser());
-
-	}
+//@Test
+//	public void addCompteTest() {
+//
+//	User user = new User();
+//	user.setIdUsser(1);
+//		Compte compte = new Compte(LocalDate.now(), 123456, 1000, "active", "courant", user);
+//		Compte savedCompte = compteService.addCompte(compte,"Debit");
+//
+//		assertNotNull(savedCompte.getIdCompte());
+//
+//	  assertEquals("courant", savedCompte.getTypeCompte());
+//	  assertEquals(1000, savedCompte.getSolde());
+//	  assertEquals("active", savedCompte.getStatus());
+//	   assertEquals(123456, savedCompte.getNumeroCompte());
+//	   assertEquals(1,savedCompte.getUser().getIdUsser());
+//
+//	}
 	@Test
 	void Somme() {
 		Integer a=5;

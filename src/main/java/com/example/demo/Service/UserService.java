@@ -30,7 +30,7 @@ public class UserService {
         compte.setTypeCompte(typeCompte);
         compte.setSolde(0);
         compte.setDateCreation(LocalDate.now());
-        compte.setStatus("active");
+        compte.setStatus("Actif");
         compte.setNumeroCompte(generateAccountNumber());
         compte.setRaisonFermeture("aucune");
         Compte savedCompte = compteRepository.save(compte);

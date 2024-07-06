@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BeneficiaireService {
@@ -15,12 +16,17 @@ public class BeneficiaireService {
 public Beneficiaire addBeneficiaire(Beneficiaire beneficiaire){
    return beneficiaireRepository.save(beneficiaire);
 }
-public ArrayList<Beneficiaire> showAllBeneficiaire(){
-    return (ArrayList<Beneficiaire>) beneficiaireRepository.findAll();
-}
+//public ArrayList<Beneficiaire> showAllBeneficiaire(){
+//    return (ArrayList<Beneficiaire>) beneficiaireRepository.findAll();
+//}
+
+    public List<Beneficiaire> showBeneficiaireByIdCompte(Integer id){
+    return beneficiaireRepository.findBeneficiaireByCompte_IdCompte(id);
+    }
 public void deleteBeneficiaire(Integer id){
     beneficiaireRepository.deleteById(id);
 }
+
 public Beneficiaire recupaireById(Integer id){
     return beneficiaireRepository.findById(id).orElseThrow();
 }

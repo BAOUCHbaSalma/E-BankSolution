@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class EbankController {
@@ -24,50 +25,88 @@ public class EbankController {
     private UserService userService;
 
 
+     //===========>Ajouter user___________________________________________________________
+    //************************************************************************************
     @PostMapping("/user")
     public User addUser(@RequestBody CompteRequest compteRequest){
         return  userService.addUser(compteRequest.getUser(), compteRequest.getTypeCompte(), compteRequest.getTypeCarte());
     }
+     //_____________________________________________________________________________________
+    //*************************************************************************************
 
+     //==========>Ajouter compte____________________________________________________________
+    //**************************************************************************************
 
-//    @PostMapping("/compte")
-//    public Compte addCompte(@RequestBody CompteRequest compteRequest) {
-//        System.out.println("///////////////"+compteRequest.getCompte().getUser().getIdUsser());
-//        System.out.println("///////////////"+compteRequest.getCompte().getTypeCompte());
-//        return compteSrv.addCompte(compteRequest.getCompte(), compteRequest.getTypeCarte());
-//
-//    }
+    //    @PostMapping("/compte")
+    //    public Compte addCompte(@RequestBody CompteRequest compteRequest) {
+    //        System.out.println("///////////////"+compteRequest.getCompte().getUser().getIdUsser());
+    //        System.out.println("///////////////"+compteRequest.getCompte().getTypeCompte());
+    //        return compteSrv.addCompte(compteRequest.getCompte(), compteRequest.getTypeCarte());
+    //
+    //    }
 
-    @GetMapping("/comptes")
-    public ArrayList<Compte> showComptes(){
-        return compteSrv.showAllCompte();
+    //_______________________________________________________________________________________
+    //***************************************************************************************
+    //=======>Afficher les comptes d'un user_________________________________________________
+    //***************************************************************************************
+    @GetMapping("/comptes/{idUser}")
+    public List<Compte> showComptes(@PathVariable Integer idUser){
+        return compteSrv.showAllCompteByIdUser(idUser);
     }
+    //______________________________________________________________________________________
+    //**************************************************************************************
 
+    //==========> Ajouter beneficiaire __________________________________________________
+    //***********************************************************************************
     @PostMapping("/beneficiaire")
     public Beneficiaire addBeneficiaire(@RequestBody Beneficiaire beneficiaire){
         return beneficiaireService.addBeneficiaire(beneficiaire);
     }
-    @GetMapping("/beneficiaires")
-    public ArrayList<Beneficiaire> showBeneficiaire(){
-        return beneficiaireService.showAllBeneficiaire();
+    //***********************************************************************************
+    //___________________________________________________________________________________
+
+    //===========>Show beneficiaires_______________________________________________________
+    //*************************************************************************************
+    @GetMapping("/beneficiaires/{idCompte}")
+    public List<Beneficiaire> showBeneficiaire(@PathVariable Integer idCompte){
+
+        return beneficiaireService.showBeneficiaireByIdCompte(idCompte);
     }
+    //________________________________________________________________________________________
+    //****************************************************************************************
+
+    //==========>Delete beneficiaire__________________________________________________________
+    //****************************************************************************************
     @DeleteMapping("/beneficiaire/{id}")
     public void deleteBeneficiaire(@PathVariable Integer id){
         beneficiaireService.deleteBeneficiaire(id);
     }
+    //_________________________________________________________________________________________
+    //******************************************************************************************
+
+    //=======>Update beneficiaire_____________________________________________________________
+    //****************************************************************************************
     @PutMapping("/beneficiaire/{id}")
     public Beneficiaire updateBeneficiaire(@PathVariable Integer id,@RequestBody Beneficiaire beneficiaire){
        return beneficiaireService.updateBeneficiaire(id,beneficiaire);
     }
+    //_________________________________________________________________________________________
+    //****************************************************************************************
+
+    //=========>Afficher Solde d'un compte_____________________________________________________
+    //*****************************************************************************************
     @GetMapping("/compte/{id}/solde")
     public Integer findSoldeByIdCompte(@PathVariable Integer id){
         return compteSrv.ConsulterSoldeCompte(id);
     }
+    //_________________________________________________________________________________________
+    //*****************************************************************************************
     @PutMapping("/compte/{id}/status")
     public Compte closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
         return compteSrv.fermetureCompte(id,compte);
-
     }
+    //________________________________________________________________________________________
+    //****************************************************************************************
 
 
 }
