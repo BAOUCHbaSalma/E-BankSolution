@@ -125,6 +125,7 @@ public class EbankController {
     public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
 
        Compte compte = compteSrv.findCompteById(idCompte);
+       if(transaction.getMontant() != 0){
         if ("Transfert externe".equals(transaction.getTypeTransaction()) &&
         transaction.getMontant() > compte.getSolde()){
 
@@ -169,6 +170,10 @@ public class EbankController {
             transactionService.addTransaction(transaction);
             return "Débit ajouté avec succès";
         }
+       }else {
+           return "Impossible de transférer ou poser ce montant";
+
+       }
 
 
 }
