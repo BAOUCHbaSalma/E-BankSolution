@@ -109,10 +109,25 @@ public class EbankController {
     }
     //________________________________________________________________________________________
     //****************************************************************************************
-@PostMapping("/transaction/{idCompte}")
-    public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
+
+    //=====>Ajouter Transaction d'un compte___________________________________________________
+    //****************************************************************************************
+    @PostMapping("/transaction/{idCompte}")
+     public String addTransaction(@PathVariable Integer idCompte,@RequestBody Transaction transaction){
        return transactionService.addTransaction(idCompte,transaction);
-}
+    }
+    //________________________________________________________________________________________
+    //****************************************************************************************
+
+    
+    //=====>Afficher Transactions d'un compte___________________________________________________
+    //****************************************************************************************
+    @GetMapping("/transactions/{idCompte}")
+    public List<Transaction> showAllTransactionByIdCompte(@PathVariable Integer idCompte){
+        return transactionService.showTransactionByIdCompte(idCompte);
+    }
+    //________________________________________________________________________________________
+    //****************************************************************************************
 
 }
 

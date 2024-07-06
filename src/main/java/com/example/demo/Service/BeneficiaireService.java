@@ -14,8 +14,10 @@ public class BeneficiaireService {
     BeneficiaireRepository beneficiaireRepository;
 
 public Beneficiaire addBeneficiaire(Beneficiaire beneficiaire){
-   return beneficiaireRepository.save(beneficiaire);
+
+    return beneficiaireRepository.save(beneficiaire);
 }
+
 //public ArrayList<Beneficiaire> showAllBeneficiaire(){
 //    return (ArrayList<Beneficiaire>) beneficiaireRepository.findAll();
 //}

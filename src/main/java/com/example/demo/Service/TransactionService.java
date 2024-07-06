@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+
 @Service
 public class TransactionService {
     @Autowired
@@ -60,4 +62,7 @@ public class TransactionService {
     }
     //____________________________________________________________________________________________
     //********************************************************************************************
+    public List<Transaction> showTransactionByIdCompte(Integer idCompte){
+        return transactionRepository.findAllByCompte_IdCompte(idCompte);
+    }
 }
