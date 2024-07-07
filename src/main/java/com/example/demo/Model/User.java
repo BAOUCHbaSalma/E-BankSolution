@@ -17,6 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User {
+    public User(String nomUser, Integer ageUser, String cin, String genre) {
+        this.nomUser = nomUser;
+        this.ageUser = ageUser;
+        this.cin = cin;
+        this.genre = genre;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsser;
