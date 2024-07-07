@@ -117,4 +117,25 @@ class DemoApplicationTests {
 //_______________________________________________________________________________________________________________________________________________________________________
 	//*******************************************************************************************************************************************************************
 
+//=========>Tester la methode afficher transactions d'un comte___________________________________________________________________________________________________________
+	//*******************************************************************************************************************************************************************
+@Test
+void showTransactionByIdCompteTest() {
+	List<Transaction> listTransaction=transactionService.showTransactionByIdCompte(23);
+	assertEquals(13,listTransaction.get(0).getIdTransaction());
+	assertEquals(14,listTransaction.get(1).getIdTransaction());
+	assertEquals(15,listTransaction.get(2).getIdTransaction());
+	assertEquals(16,listTransaction.get(3).getIdTransaction());
+	assertEquals(17,listTransaction.get(4).getIdTransaction());
+	assertEquals(18,listTransaction.get(5).getIdTransaction());
+	assertEquals(19,listTransaction.get(6).getIdTransaction());
+	assertEquals(21,listTransaction.get(7).getIdTransaction());
+	assertEquals(22,listTransaction.get(8).getIdTransaction());
+	assertEquals(23,listTransaction.get(9).getIdTransaction());
+	assertEquals(24,listTransaction.get(10).getIdTransaction());
+
+
+}
+//_______________________________________________________________________________________________________________________________________________________________________
+	//*******************************************************************************************************************************************************************
 }
