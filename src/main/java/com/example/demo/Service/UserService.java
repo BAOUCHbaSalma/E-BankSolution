@@ -23,9 +23,10 @@ public class UserService {
     private CompteRepository compteRepository;
 
 
-   //=====>Générer un compte bancaire et une carte apres l'insertion d'un user_____________________
+   //=====>Générer un compte bancaire et une carte apres l'insertion d'un user _____________________
    //**********************************************************************************************
     public User addUser(User user, String typeCompte, String typeCarte){
+
         User user1=userRepository.save(user);
         //===>Générer un compte----------------------------
         Compte compte=new Compte();
@@ -54,20 +55,26 @@ public class UserService {
     //*******************************************************************************************
 
 
-    //====>Générer un numéro de compte unique______________________________________________________
+    //====>Générer un numéro de compte unique ______________________________________________________
     //*********************************************************************************************
     private String generateAccountNumber() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, 10);
+
+        String uuid = UUID.randomUUID().toString().replaceAll("[^0-9]", ""); // Supprime tous les caractères non numériques
+        return uuid.substring(0, Math.min(uuid.length(), 10)); // Prend les 10 premiers chiffres ou moins si la longueur est inférieure à 10
     }
     //___________________________________________________________________________________________
     //*******************************************************************************************
 
 
-    //====>Générer un numéro de carte bancaire unique_____________________________________________
+    //====>Générer un numéro de carte bancaire unique _____________________________________________
     //********************************************************************************************
     private String generateCardNumber() {
+
         return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
+
     }
     //_____________________________________________________________________________________________
     //*********************************************************************************************
 }
+
+

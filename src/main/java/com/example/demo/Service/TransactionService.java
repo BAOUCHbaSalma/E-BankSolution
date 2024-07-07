@@ -18,9 +18,10 @@ public class TransactionService {
     @Autowired
     private CompteService compteSrv;
 
-    // ========> Add Transaction________________________________________________________________
+    // ========>Ajouter Transaction ____________________________________________________________
     // *****************************************************************************************
     public String addTransaction(Integer idCompte, Transaction transaction) {
+
         Compte compte = compteSrv.findCompteById(idCompte);
 
         if (compte == null) {
@@ -62,7 +63,15 @@ public class TransactionService {
     }
     //____________________________________________________________________________________________
     //********************************************************************************************
+
+
+    //=======>Afficher transactions d'un compte __________________________________________________
+    //********************************************************************************************
     public List<Transaction> showTransactionByIdCompte(Integer idCompte){
+
         return transactionRepository.findAllByCompte_IdCompte(idCompte);
+
     }
+    //____________________________________________________________________________________________
+    //********************************************************************************************
 }

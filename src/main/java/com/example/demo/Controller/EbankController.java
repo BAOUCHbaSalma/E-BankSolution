@@ -138,5 +138,26 @@ public class EbankController {
     //________________________________________________________________________________________
     //****************************************************************************************
 
+    //=====>Afficher list des cartes id compte________________________________________________
+    //****************************************************************************************
+    @GetMapping("/cartes/{idCompte}")
+    public List<CarteBancaire> showListCarteBancaire(@PathVariable Integer idCompte){
+        return carteBancaireService.showListCarteByIdCompte(idCompte);
+    }
+
+    //________________________________________________________________________________________
+    //****************************************************************************************
+
+
+    //====>Changer status du carte bancaire_____________________________________________
+    //***********************************************************************************
+    @PostMapping("/carte/{idCarte}/status")
+    public CarteBancaire updateStatusCarte(@PathVariable Integer idCarte,@RequestBody CarteBancaire carteBancaire){
+        return carteBancaireService.updateStatusCarteBancaire(idCarte,carteBancaire.getStatus());
+    }
+
+    //________________________________________________________________________________________
+    //****************************************************************************************
+
 }
 

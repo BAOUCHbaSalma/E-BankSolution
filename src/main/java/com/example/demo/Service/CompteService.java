@@ -23,6 +23,7 @@ public class CompteService {
     //======> Pour générer une carte apres l'ajout d'un compte__________________________________
     //********************************************************************************************
     //    public Compte addCompte(Compte compte, String typeCarte){
+    //
     //        Compte cmpt=compteR.save(compte);
     //        System.out.print("//////////////"+ compte.getIdCompte()+"/////////////"+compte.getTypeCompte()+"////////////////"+compte.getDateCreation());
     //        CarteBancaire carteBancaire = new CarteBancaire();
@@ -34,6 +35,7 @@ public class CompteService {
     //        carteBancaireRepository.save(carteBancaire);
     //        return cmpt;
     //    }
+    //
     //________________________________________________________________________________________
     //****************************************************************************************
 
@@ -41,7 +43,9 @@ public class CompteService {
     //======>Pour Afficher tous les comptes d'un user_____________________________________
     //**************************************************************************************
     public List<Compte> showAllCompteByIdUser(Integer idUser){
+
         return compteR.findAllByUser_IdUsserAndStatus(idUser,"actif");
+
     }
     //________________________________________________________________________________________
     //****************************************************************************************
@@ -51,7 +55,9 @@ public class CompteService {
     //======>Pour Afficher le solde d'un compte_______________________________________________
     //*****************************************************************************************
     public Double ConsulterSoldeCompte(Integer id){
+
         return compteR.findSoldeByIdCompte(id);
+
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
@@ -60,7 +66,9 @@ public class CompteService {
     //======>Pour Trouver un compte par id____________________________________________________
     //*****************************************************************************************
     public Compte findCompteById(Integer id){
+
         return compteR.findById(id).orElseThrow();
+
     }
     //_________________________________________________________________________________________
     //******************************************************************************************
@@ -69,6 +77,7 @@ public class CompteService {
     //======>Pour fermer un compte_____________________________________________________________
     //*****************************************************************************************
     public String fermetureCompte(Integer id,Compte compte){
+
         Compte compte1=findCompteById(id);
         if (compte1.getSolde()>=0) {
             compte1.setStatus("Fermer");
@@ -82,8 +91,6 @@ public class CompteService {
         }
 
     }
-
-
     //_________________________________________________________________________________________
     //******************************************************************************************
 
@@ -91,6 +98,7 @@ public class CompteService {
     //======>Pour generer un string___________________________________________________________
     //****************************************************************************************
     private String generateCardNumber() {
+
         return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
     }
     //_________________________________________________________________________________________
@@ -100,6 +108,7 @@ public class CompteService {
     //=====>Update Solde By id Compte__________________________________________________________
     //*****************************************************************************************
     public Compte updateSolde(Integer idCompte,Double solde){
+
         Compte compte=findCompteById(idCompte);
         compte.setSolde(solde);
          return compteR.save(compte);
