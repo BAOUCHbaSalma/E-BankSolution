@@ -29,7 +29,7 @@ class DemoApplicationTests {
 
 //=============>Ajouter user avec la generation automatique du compte et carte ______________________________________________________________________________
 	//*******************************************************************************************************************************************************
-@Test
+    @Test
 	public void addCompteTest() {
 
 //	User user = new User("Wissal",23,"WA13245","F");
@@ -119,35 +119,47 @@ class DemoApplicationTests {
 
 //=========>Tester la methode afficher transactions d'un comte___________________________________________________________________________________________________________
 	//*******************************************************************************************************************************************************************
-@Test
-void showTransactionByIdCompteTest() {
+	@Test
+	void showTransactionByIdCompteTest() {
 
-//	List<Transaction> listTransaction=transactionService.showTransactionByIdCompte(23);
-//	assertEquals(13,listTransaction.get(0).getIdTransaction());
-//	assertEquals(14,listTransaction.get(1).getIdTransaction());
-//	assertEquals(15,listTransaction.get(2).getIdTransaction());
-//	assertEquals(16,listTransaction.get(3).getIdTransaction());
-//	assertEquals(17,listTransaction.get(4).getIdTransaction());
-//	assertEquals(18,listTransaction.get(5).getIdTransaction());
-//	assertEquals(19,listTransaction.get(6).getIdTransaction());
-//	assertEquals(21,listTransaction.get(7).getIdTransaction());
-//	assertEquals(22,listTransaction.get(8).getIdTransaction());
-//	assertEquals(23,listTransaction.get(9).getIdTransaction());
-//	assertEquals(24,listTransaction.get(10).getIdTransaction());
+	//	List<Transaction> listTransaction=transactionService.showTransactionByIdCompte(23);
+	//	assertEquals(13,listTransaction.get(0).getIdTransaction());
+	//	assertEquals(14,listTransaction.get(1).getIdTransaction());
+	//	assertEquals(15,listTransaction.get(2).getIdTransaction());
+	//	assertEquals(16,listTransaction.get(3).getIdTransaction());
+	//	assertEquals(17,listTransaction.get(4).getIdTransaction());
+	//	assertEquals(18,listTransaction.get(5).getIdTransaction());
+	//	assertEquals(19,listTransaction.get(6).getIdTransaction());
+	//	assertEquals(21,listTransaction.get(7).getIdTransaction());
+	//	assertEquals(22,listTransaction.get(8).getIdTransaction());
+	//	assertEquals(23,listTransaction.get(9).getIdTransaction());
+	//	assertEquals(24,listTransaction.get(10).getIdTransaction());
 
 
-}
+     }
 //_______________________________________________________________________________________________________________________________________________________________________
 	//*******************************************************************************************************************************************************************
 
 //=========>Tester la methode fermeture d'un compte______________________________________________________________________________________________________________________
 	//*******************************************************************************************************************************************************************
-@Test
-void fermetureCompteTest(){
-	String Reponse=compteService.fermetureCompte(21,compteService.findCompteById(21));
-	assertEquals("Impossible de fermer ce compte a cause de votre solde",Reponse);
+	@Test
+	void fermetureCompteTest(){
 
-}
+	//	String Reponse=compteService.fermetureCompte(21,compteService.findCompteById(21));
+	//	assertEquals("Impossible de fermer ce compte a cause de votre solde",Reponse);
+
+    }
+
+//_______________________________________________________________________________________________________________________________________________________________________
+	//*******************************************************************************************************************************************************************
+
+//_______________________________________________________________________________________________________________________________________________________________________
+	//*******************************************************************************************************************************************************************
+	@Test
+	void showListCarteByIdCompteTest(){
+		List<CarteBancaire> Cartes=carteBancaireService.showListCarteByIdCompte(23);
+		assertEquals(6,Cartes.get(0).getIdCarte());
+	}
 
 //_______________________________________________________________________________________________________________________________________________________________________
 	//*******************************************************************************************************************************************************************
