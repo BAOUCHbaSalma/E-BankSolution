@@ -39,4 +39,14 @@ public class Transaction {
     @JoinColumn(name = "idCompte")
     private Compte compte;
 
+    public Transaction(LocalDate dateTransaction, LocalTime heursTransaction, Integer montant, String typeTransaction, String descriptionTransaction, String banque, Beneficiaire beneficiaire, Compte compte) {
+        this.dateTransaction = dateTransaction;
+        this.heursTransaction = heursTransaction;
+        this.montant = montant;
+        this.typeTransaction = typeTransaction;
+        this.descriptionTransaction = descriptionTransaction;
+        this.banque = banque;
+        this.beneficiaire = beneficiaire;
+        this.compte = compte;
+    }
 }

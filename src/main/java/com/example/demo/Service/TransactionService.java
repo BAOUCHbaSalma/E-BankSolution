@@ -24,10 +24,6 @@ public class TransactionService {
 
         Compte compte = compteSrv.findCompteById(idCompte);
 
-        if (compte == null) {
-            return "Compte non trouvé";
-        }
-
         if (transaction.getMontant() == 0) {
             return "Impossible de transférer ou poser ce montant";
         }
@@ -47,13 +43,18 @@ public class TransactionService {
             Double newSolde = compte.getSolde() - transaction.getMontant();
             compteSrv.updateSolde(idCompte, newSolde);
             return transaction.getMontant() + "Dh transféré avec succès à " + transaction.getBeneficiaire().getNomBeneficiaire();
-        } else if ("Transfert interne".equals(transaction.getTypeTransaction())) {
+
+        }
+
+        else if ("Transfert interne".equals(transaction.getTypeTransaction())) {
             transaction.setBanque("Ebank");
             transactionRepository.save(transaction);
             Double newSolde = compte.getSolde() - transaction.getMontant();
             compteSrv.updateSolde(idCompte, newSolde);
             return transaction.getMontant() + "Dh transféré avec succès à " + compte.getUser().getNomUser();
-        } else {
+        }
+
+        else {
             transaction.setBanque("Ebank");
             transactionRepository.save(transaction);
             Double newSolde = compte.getSolde() + transaction.getMontant();

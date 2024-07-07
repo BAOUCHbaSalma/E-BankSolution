@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 public class EbankController {
     @Autowired
-       private CompteService compteSrv;
+    private CompteService compteSrv;
     @Autowired
     private BeneficiaireService beneficiaireService;
     @Autowired

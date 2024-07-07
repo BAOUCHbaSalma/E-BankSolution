@@ -1,12 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.Model.CarteBancaire;
-import com.example.demo.Model.Compte;
-import com.example.demo.Model.CompteRequest;
-import com.example.demo.Model.User;
-import com.example.demo.Service.CarteBancaireService;
-import com.example.demo.Service.CompteService;
-import com.example.demo.Service.UserService;
+import com.example.demo.Model.*;
+import com.example.demo.Service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +22,10 @@ class DemoApplicationTests {
 	private UserService userService;
 	@Autowired
 	private CarteBancaireService carteBancaireService;
+	@Autowired
+	private BeneficiaireService beneficiaireService;
+	@Autowired
+	private TransactionService transactionService;
 @Test
 	public void addCompteTest() {
 
@@ -55,16 +54,39 @@ class DemoApplicationTests {
 	assertNotNull(carteBancaire.get(0).getNumero());
 	assertEquals(LocalDate.now().plusYears(3),carteBancaire.get(0).getDateExpiration());
 	assertEquals("Débit",carteBancaire.get(0).getTypeCarte());
-	
 
 	}
 	@Test
-	void Somme() {
-		Integer a=5;
-		Integer b=1;
+	void addTransactionTest() {
 
-		assertEquals(6,a+b);
+	//======>Montant 0 _____________________________________________________________________________________________________
+		//*******************************************************************************************************************
+	    Compte compte=compteService.findCompteById(23);
+		Beneficiaire beneficiaire=beneficiaireService.recupaireById(12);
+		//		Transaction transaction=new Transaction(LocalDate.now(),LocalTime.now(),0,"Transfert interne","Achat","",beneficiaire,compte);
+		//		String transactionResponse=transactionService.addTransaction(23,transaction);
+		//        assertEquals("Impossible de transférer ou poser ce montant",transactionResponse);
+//_______________________________________________________________________________________________________________________________
+		//***********************************************************************************************************************
 
+	//======>Montant>Solde ______________________________________________________________________________________________________
+		//************************************************************************************************************************
+
+		//		Transaction transaction2=new Transaction(LocalDate.now(),LocalTime.now(),1000,"Transfert interne","Achat","",beneficiaire,compte);
+		//		String transactionResponse2=transactionService.addTransaction(23,transaction2);
+		//		assertEquals("Impossible de transférer ce montant",transactionResponse2);
+//_________________________________________________________________________________________________________________________________
+		//*************************************************************************************************************************
+
+	//========>Transfert interne___________________________________________________________________________________________________
+		//*************************************************************************************************************************
+
+//				Transaction transaction3=new Transaction(LocalDate.now(),LocalTime.now(),1000,"Transfert interne","Achat","",beneficiaire,compte);
+//				String transactionResponse3=transactionService.addTransaction(23,transaction3);
+//				assertEquals(1000 + "Dh transféré avec succès à "+ "BAOUCH SALMA",transactionResponse3);
+
+//___________________________________________________________________________________________________________________________________
+		//***************************************************************************************************************************
 	}
 
 }
