@@ -8,4 +8,5 @@ import java.util.List;
 public interface CarteBancaireRepository extends JpaRepository<CarteBancaire,Integer> {
 
     List<CarteBancaire> findAllByCompte_IdCompte(Integer idCompte);
+    void deleteAllByCompte_IdCompte(Integer idCompte);
 }

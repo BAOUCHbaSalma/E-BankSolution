@@ -83,6 +83,7 @@ public class CompteService {
             compte1.setStatus("Fermer");
             compte1.setRaisonFermeture(compte.getRaisonFermeture());
             compteR.save(compte1);
+            carteBancaireRepository.deleteAllByCompte_IdCompte(id);
             return "Compte fermé avec succès";
         }else {
 
