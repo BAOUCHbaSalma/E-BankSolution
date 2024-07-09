@@ -22,6 +22,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsser;
     @Column
+
     private String nomUser;
     @Column
     private Integer ageUser;
