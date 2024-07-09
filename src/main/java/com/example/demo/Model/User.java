@@ -17,12 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class User {
-    public User(String nomUser, Integer ageUser, String cin, String genre) {
-        this.nomUser = nomUser;
-        this.ageUser = ageUser;
-        this.cin = cin;
-        this.genre = genre;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +26,20 @@ public class User {
     @Column
     private Integer ageUser;
     @Column
+    private String motDePasse;
+    @Column
     private String cin;
     @Column
     private String genre;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Compte> listeCompte;
+
+    public User(String nomUser, Integer ageUser, String cin, String genre) {
+        this.nomUser = nomUser;
+        this.ageUser = ageUser;
+        this.cin = cin;
+        this.genre = genre;
+    }
 
 }
