@@ -7,6 +7,7 @@ import com.example.demo.Repository.CarteBancaireRepository;
 import com.example.demo.Repository.CompteRepository;
 import com.example.demo.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,36 +22,39 @@ public class UserService {
     private CarteBancaireRepository carteBancaireRepository;
     @Autowired
     private CompteRepository compteRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
-   //=====>Générer un compte bancaire et une carte apres l'insertion d'un user_____________________
+   //=====>Générer un compte bancaire et une carte apres l'insertion d'un user _____________________
    //**********************************************************************************************
-    public User addUser(User user, String typeCompte, String typeCarte){
-
-        User user1=userRepository.save(user);
-        //===>Générer un compte----------------------------
-        Compte compte=new Compte();
-        compte.setUser(user1);
-        compte.setTypeCompte(typeCompte);
-        compte.setSolde(0.0);
-        compte.setDateCreation(LocalDate.now());
-        compte.setStatus("Actif");
-        compte.setNumeroCompte(generateAccountNumber());
-        compte.setRaisonFermeture("aucune");
-        Compte savedCompte = compteRepository.save(compte);
-       //-----------------------------------------------------
-        //===>Générer une carte bancaire-----------------------
-        CarteBancaire carteBancaire = new CarteBancaire();
-        carteBancaire.setNumero(generateCardNumber());
-        carteBancaire.setStatus("Activer");
-        carteBancaire.setTypeCarte(typeCarte);
-        carteBancaire.setDateExpiration(LocalDate.now().plusYears(3));
-        carteBancaire.setCompte(savedCompte);
-        carteBancaireRepository.save(carteBancaire);
-       //---------------------------------------------------------
-        return user1;
-
-    }
+   public String addUser(User user, String typeCompte, String typeCarte) {
+       if(user.getMotDePasse().equals(user.getConfirmationMDP())) {
+           user.setMotDePasse(passwordEncoder.encode(user.getMotDePasse()));
+           user.setConfirmationMDP(passwordEncoder.encode(user.getConfirmationMDP()));
+           User user1 = userRepository.save(user);
+           // Générer un compte
+           Compte compte = new Compte();
+           compte.setUser(user1);
+           compte.setTypeCompte(typeCompte);
+           compte.setSolde(0.0);
+           compte.setDateCreation(LocalDate.now());
+           compte.setStatus("Actif");
+           compte.setNumeroCompte(generateAccountNumber());
+           compte.setRaisonFermeture("aucune");
+           Compte savedCompte = compteRepository.save(compte);
+           // Générer une carte bancaire
+           CarteBancaire carteBancaire = new CarteBancaire();
+           carteBancaire.setNumero(generateCardNumber());
+           carteBancaire.setStatus("Activer");
+           carteBancaire.setTypeCarte(typeCarte);
+           carteBancaire.setDateExpiration(LocalDate.now().plusYears(3));
+           carteBancaire.setCompte(savedCompte);
+           carteBancaireRepository.save(carteBancaire);
+           return "Compte ajouté avec succès";
+       }
+       return "Le mot de passe est pas le même";
+   }
     //___________________________________________________________________________________________
     //*******************************************************************************************
 

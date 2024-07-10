@@ -29,7 +29,7 @@ public class EbankController {
      //===========>Ajouter user___________________________________________________________
     //************************************************************************************
     @PostMapping("/user")
-    public User addUser(@RequestBody CompteRequest compteRequest){
+    public String addUser(@RequestBody CompteRequest compteRequest){
         return  userService.addUser(compteRequest.getUser(), compteRequest.getTypeCompte(), compteRequest.getTypeCarte());
     }
      //_____________________________________________________________________________________

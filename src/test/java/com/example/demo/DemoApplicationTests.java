@@ -32,20 +32,21 @@ class DemoApplicationTests {
     @Test
 	public void addCompteTest() {
 
-//	User user = new User("Wissal",23,"WA13245","F");
-//	User user1=userService.addUser(user,"Courant","Débit");
-
-  //Tester user
-
-//	assertNotNull(user1.getIdUsser());
-//	assertEquals("Wissal",user1.getNomUser());
-//	assertEquals(23,user1.getAgeUser());
-//	assertEquals("WA13245",user1.getCin());
-//	assertEquals("F",user1.getGenre());
-
-    //Tester compte
-
-//	List<Compte> compte =compteService.showAllCompteByIdUser(user1.getIdUsser());
+//	User user = new User("Anass",27,"WA13345","M","salma123","salma123");
+//	userService.addUser(user,"Courant","Débit");
+//
+//
+//  //Tester user
+//
+//	assertNotNull(user.getIdUsser());
+//	assertEquals("Anass",user.getNomUser());
+//	assertEquals(27,user.getAgeUser());
+//	assertEquals("WA13345",user.getCin());
+//	assertEquals("M",user.getGenre());
+//
+//    //Tester compte
+//
+//	List<Compte> compte =compteService.showAllCompteByIdUser(user.getIdUsser());
 //	assertNotNull(compte);
 //	assertNotNull(compte.get(0).getIdCompte());
 //	assertNotNull(compte.get(0).getNumeroCompte());
@@ -54,16 +55,16 @@ class DemoApplicationTests {
 //	assertEquals("aucune", compte.get(0).getRaisonFermeture());
 //	assertEquals(0.0,compte.get(0).getSolde());
 //	assertEquals(LocalDate.now(),compte.get(0).getDateCreation());
-
-    //Tester carte
-
+//
+//   // Tester carte
+//
 //	List<CarteBancaire> carteBancaire=carteBancaireService.showListCarteByIdCompte(compte.get(0).getIdCompte());
 //	assertNotNull(carteBancaire);
 //	assertNotNull(carteBancaire.get(0).getIdCarte());
 //	assertNotNull(carteBancaire.get(0).getNumero());
 //	assertEquals(LocalDate.now().plusYears(3),carteBancaire.get(0).getDateExpiration());
 //	assertEquals("Débit",carteBancaire.get(0).getTypeCarte());
-
+//
 	}
 //_____________________________________________________________________________________________________________________________________________________________
 	//*********************************************************************************************************************************************************
@@ -154,7 +155,7 @@ class DemoApplicationTests {
 	//*******************************************************************************************************************************************************************
 
 //=======>Afficher liste des cartes d'un compte__________________________________________________________________________________________________________________________
-	//*******************************************************************************************************************************************************************
+	//******************************************************************************************************************************************************************
 	@Test
 	void showListCarteByIdCompteTest(){
 //		List<CarteBancaire> Cartes=carteBancaireService.showListCarteByIdCompte(23);

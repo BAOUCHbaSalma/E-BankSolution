@@ -29,6 +29,8 @@ public class User {
     @Column
     private String motDePasse;
     @Column
+    private String confirmationMDP;
+    @Column
     private String cin;
     @Column
     private String genre;
@@ -36,11 +38,13 @@ public class User {
     @JsonIgnore
     private List<Compte> listeCompte;
 
-    public User(String nomUser, Integer ageUser, String cin, String genre) {
+    public User(String nomUser, Integer ageUser, String cin, String genre,String motDePasse,String confirmationMDP) {
         this.nomUser = nomUser;
         this.ageUser = ageUser;
         this.cin = cin;
         this.genre = genre;
+        this.motDePasse=motDePasse;
+        this.confirmationMDP=confirmationMDP;
     }
 
 }
