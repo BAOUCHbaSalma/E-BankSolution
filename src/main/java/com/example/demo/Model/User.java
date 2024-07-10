@@ -2,6 +2,7 @@ package com.example.demo.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,17 +17,17 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsser;
-    @Column
-
+    @Column(name = "username")
     private String nomUser;
     @Column
     private Integer ageUser;
-    @Column
+    @Column(name = "password")
     private String motDePasse;
     @Column
     private String confirmationMDP;
