@@ -36,9 +36,9 @@ public class SecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable()) // Désactiver la protection CSRF
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().permitAll() // Permettre toutes les requêtes sans authentification
-                );
+                .authorizeHttpRequests(expressionInterceptUrlRegistry ->
+                        expressionInterceptUrlRegistry.requestMatchers("/securityNone").permitAll()
+                                .anyRequest().authenticated());
         return http.build();
     }
 }

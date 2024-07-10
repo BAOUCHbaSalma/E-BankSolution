@@ -158,6 +158,10 @@ public class EbankController {
 
     //________________________________________________________________________________________
     //****************************************************************************************
+    @GetMapping("/securityNone")
+    public String securityNoneEndpoint() {
+        return "Cette ressource est accessible sans authentification.";
+    }
 
 }
 
