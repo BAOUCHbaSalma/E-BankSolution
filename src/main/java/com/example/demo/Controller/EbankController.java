@@ -5,15 +5,14 @@ import com.example.demo.Model.*;
 import com.example.demo.Security.JwtAuth;
 import com.example.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -28,7 +27,7 @@ public class EbankController {
     private TransactionService transactionService;
     @Autowired
     private CarteBancaireService carteBancaireService;
-@Autowired
+    @Autowired
     AuthenticationManager authenticationManager;
 
 
@@ -164,12 +163,17 @@ public class EbankController {
 
     //________________________________________________________________________________________
     //****************************************************************************************
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
-        String token= JwtAuth.generateToken(user.getUsername());
-        return ResponseEntity.ok(token);
-        }
+            System.out.println("///////////////////"+user.getPassword()+"//////////////"+user.getUsername());
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+            );
+            String token = JwtAuth.generateToken(user.getUsername());
+            return ResponseEntity.ok(token);
 
-}
+        }
+    }
+
+
 

@@ -13,20 +13,15 @@ import java.util.Date;
 
 @Service
 public class JwtAuth {
-    private static Key SECRET_KEY = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256);
-
-
-
-
-
+    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public static String generateToken(String username) {
-
+        System.out.println("///////////////////"+username+"333333 GENERATETOKEN JWTAUTH");
         return Jwts.builder()
-                .subject(username)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 24*60*60*1000))
-                .signWith(SignatureAlgorithm.HS256,SECRET_KEY)
+                .setSubject(username)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000)) // 24 hours
+                .signWith(SECRET_KEY)
                 .compact();
     }
 }
