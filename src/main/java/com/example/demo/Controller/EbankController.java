@@ -18,8 +18,8 @@ import java.util.List;
 
 @RestController
 public class EbankController {
-    @Autowired
-    private CompteService compteSrv;
+   @Autowired
+   private CompteService compteService;
     @Autowired
     private BeneficiaireService beneficiaireService;
     @Autowired
@@ -58,7 +58,7 @@ public class EbankController {
     //***************************************************************************************
     @GetMapping("/comptes/{idUser}")
     public List<Compte> showComptes(@PathVariable Integer idUser){
-        return compteSrv.showAllCompteByIdUser(idUser);
+        return compteService.showAllCompteByIdUser(idUser);
     }
     //______________________________________________________________________________________
     //**************************************************************************************
@@ -104,13 +104,13 @@ public class EbankController {
     //*****************************************************************************************
     @GetMapping("/compte/{id}/solde")
     public Double findSoldeByIdCompte(@PathVariable Integer id){
-        return compteSrv.ConsulterSoldeCompte(id);
+        return compteService.ConsulterSoldeCompte(id);
     }
     //_________________________________________________________________________________________
     //*****************************************************************************************
     @PutMapping("/compte/{id}/status")
     public String closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
-        return compteSrv.fermetureCompte(id,compte);
+        return compteService.fermetureCompte(id,compte);
     }
     //________________________________________________________________________________________
     //****************************************************************************************

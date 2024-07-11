@@ -51,7 +51,7 @@ public class TransactionService {
             transactionRepository.save(transaction);
             Double newSolde = compte.getSolde() - transaction.getMontant();
             compteSrv.updateSolde(idCompte, newSolde);
-            return transaction.getMontant() + "Dh transféré avec succès à " + compte.getUser().getNomUser();
+            return transaction.getMontant() + "Dh transféré avec succès à " + compte.getUser().getUsername();
         }
 
         else {

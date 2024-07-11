@@ -27,9 +27,10 @@ public class SecurityConfig  {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 //    @Bean
 //    public JdbcUserDetailsManager jdbcUserDetailsManager() {
 //        JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager();
@@ -48,12 +49,9 @@ public class SecurityConfig  {
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
                                 .requestMatchers("/user").permitAll()
-                                .anyRequest().authenticated())
-                .formLogin(formLogin ->
-                        formLogin
-                                .defaultSuccessUrl("/comptes/2", true)
-                                .failureUrl("/login?error=true")
-                );
+                                .requestMatchers("/login").permitAll()
+                                .anyRequest().authenticated());
+
         return http.build();
     }
     @Bean

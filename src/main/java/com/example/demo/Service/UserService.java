@@ -29,9 +29,8 @@ public class UserService {
    //=====>Générer un compte bancaire et une carte apres l'insertion d'un user _____________________
    //**********************************************************************************************
    public String addUser(User user, String typeCompte, String typeCarte) {
-       if(user.getMotDePasse().equals(user.getConfirmationMDP())) {
-           user.setMotDePasse(passwordEncoder.encode(user.getMotDePasse()));
-           user.setConfirmationMDP(passwordEncoder.encode(user.getConfirmationMDP()));
+       String hashedPassword = passwordEncoder.encode(user.getPassword());
+       user.setPassword(hashedPassword);
            User user1 = userRepository.save(user);
            // Générer un compte
            Compte compte = new Compte();
@@ -52,8 +51,7 @@ public class UserService {
            carteBancaire.setCompte(savedCompte);
            carteBancaireRepository.save(carteBancaire);
            return "Compte ajouté avec succès";
-       }
-       return "Le mot de passe est pas le même";
+
    }
     //___________________________________________________________________________________________
     //*******************************************************************************************

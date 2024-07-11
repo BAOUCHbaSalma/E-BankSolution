@@ -21,7 +21,7 @@ public interface CompteRepository extends JpaRepository<Compte,Integer> {
 
     //=======>Afficher Comptes par IdUser_________________________________________
     //****************************************************************************
-    List<Compte> findAllByUser_IdUsserAndStatus(Integer userId, String status);
+    List<Compte> findAllByUser_UserIdAndStatus(Integer userId, String status);
 
     //____________________________________________________________________________
     //****************************************************************************

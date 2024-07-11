@@ -44,7 +44,7 @@ public class CompteService {
     //**************************************************************************************
     public List<Compte> showAllCompteByIdUser(Integer idUser){
 
-        return compteR.findAllByUser_IdUsserAndStatus(idUser,"actif");
+        return compteR.findAllByUser_UserIdAndStatus(idUser,"actif");
 
     }
     //________________________________________________________________________________________
