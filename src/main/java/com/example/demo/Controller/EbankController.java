@@ -2,9 +2,13 @@ package com.example.demo.Controller;
 
 
 import com.example.demo.Model.*;
+import com.example.demo.Security.JwtAuth;
 import com.example.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -24,6 +28,8 @@ public class EbankController {
     private TransactionService transactionService;
     @Autowired
     private CarteBancaireService carteBancaireService;
+@Autowired
+    AuthenticationManager authenticationManager;
 
 
      //===========>Ajouter user___________________________________________________________
@@ -158,10 +164,12 @@ public class EbankController {
 
     //________________________________________________________________________________________
     //****************************************************************************************
-    @GetMapping("/securityNone")
-    public String securityNoneEndpoint() {
-        return "Cette ressource est accessible sans authentification.";
-    }
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+        String token= JwtAuth.generateToken(user.getUsername());
+        return ResponseEntity.ok(token);
+        }
 
 }
 
