@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.sql.DataSource;
 
@@ -44,6 +45,7 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         System.out.println("filtercjain///////////");
+
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
@@ -52,7 +54,8 @@ public class SecurityConfig  {
                                 .requestMatchers("/login").permitAll() // Permettre l'accès à l'endpoint /login
                                 .anyRequest().authenticated()
                 )
-                .formLogin(formLogin ->formLogin.disable()); // Désactiver le formulaire de login par défaut de Spring Security
+                .formLogin(formLogin ->formLogin.disable());// Désactiver le formulaire de login par défaut de Spring Security
+                 http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

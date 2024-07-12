@@ -13,7 +13,7 @@ import java.util.Date;
 
 @Service
 public class JwtAuth {
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public static String generateToken(String username) {
         System.out.println("///////////////////"+username+"333333 GENERATETOKEN JWTAUTH");
