@@ -76,14 +76,13 @@ public class CompteService {
 
     //======>Pour fermer un compte_____________________________________________________________
     //*****************************************************************************************
-    public String fermetureCompte(Integer id,Compte compte){
+    public String fermetureCompte(Integer id,String status){
 
         Compte compte1=findCompteById(id);
         if (compte1.getSolde()>=0) {
-            compte1.setStatus("Fermer");
-            compte1.setRaisonFermeture(compte.getRaisonFermeture());
+            compte1.setStatus(status);
+            compte1.setRaisonFermeture("Client Request");
             compteR.save(compte1);
-            carteBancaireRepository.deleteAllByCompte_IdCompte(id);
             return "Compte fermé avec succès";
         }else {
 

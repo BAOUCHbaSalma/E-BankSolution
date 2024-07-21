@@ -32,17 +32,13 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                         .build()
                         .parseClaimsJws(jwt)
                         .getBody();
-
-                // Vous pouvez maintenant utiliser les claims pour obtenir des informations du JWT
-                 String username = claims.getSubject();
-         ;
+                      String username = claims.getSubject();
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             username, null, null);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     filterChain.doFilter(request,response);
 
             }catch(Exception e){
-                response.setHeader("error message",e.getMessage());
                 response.sendError(HttpServletResponse.SC_FORBIDDEN);
 
             }

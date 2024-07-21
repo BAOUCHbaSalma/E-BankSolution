@@ -50,6 +50,7 @@ public class SecurityConfig  {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
+
                                 .requestMatchers("/user").permitAll()
                                 .requestMatchers("/login").permitAll() // Permettre l'accès à l'endpoint /login
                                 .anyRequest().authenticated()

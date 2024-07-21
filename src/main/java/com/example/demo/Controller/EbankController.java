@@ -13,9 +13,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin("*")
+
 public class EbankController {
    @Autowired
    private CompteService compteService;
@@ -34,8 +38,9 @@ public class EbankController {
      //===========>Ajouter user___________________________________________________________
     //************************************************************************************
     @PostMapping("/user")
-    public String addUser(@RequestBody CompteRequest compteRequest){
-        return  userService.addUser(compteRequest.getUser(), compteRequest.getTypeCompte(), compteRequest.getTypeCarte());
+    public void addUser(@RequestBody CompteRequest compteRequest){
+        userService.addUser(compteRequest.getUser(), compteRequest.getTypeCompte(), compteRequest.getTypeCarte());
+
     }
      //_____________________________________________________________________________________
     //*************************************************************************************
@@ -108,8 +113,8 @@ public class EbankController {
     //_________________________________________________________________________________________
     //*****************************************************************************************
     @PutMapping("/compte/{id}/status")
-    public String closeCompte(@PathVariable Integer id,@RequestBody Compte compte){
-        return compteService.fermetureCompte(id,compte);
+    public String closeCompte(@PathVariable Integer id,@RequestBody String statusF){
+        return compteService.fermetureCompte(id,statusF);
     }
     //________________________________________________________________________________________
     //****************************************************************************************
@@ -157,8 +162,8 @@ public class EbankController {
     //====>Changer status du carte bancaire_____________________________________________
     //***********************************************************************************
     @PostMapping("/carte/{idCarte}/status")
-    public CarteBancaire updateStatusCarte(@PathVariable Integer idCarte,@RequestBody CarteBancaire carteBancaire){
-        return carteBancaireService.updateStatusCarteBancaire(idCarte,carteBancaire.getStatus());
+    public CarteBancaire updateStatusCarte(@PathVariable Integer idCarte,@RequestBody String status){
+        return carteBancaireService.updateStatusCarteBancaire(idCarte,status);
     }
 
     //________________________________________________________________________________________
@@ -166,14 +171,27 @@ public class EbankController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
             System.out.println("///////////////////"+user.getPassword()+"//////////////"+user.getUsername());
-            Authentication authentication = authenticationManager.authenticate(
+             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
             String token = JwtAuth.generateToken(user.getUsername());
-            return ResponseEntity.ok(token);
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+            return ResponseEntity.ok(response);
 
         }
-    }
 
+ @GetMapping("/findB/{id}")
+    public Beneficiaire findBeneficiaireById(@PathVariable Integer id){
+        return beneficiaireService.recupaireById(id);
+
+ }
+
+
+ @GetMapping("/user/id")
+    public  Integer findIdByUsername(@RequestParam String username){
+    return userService.findIdByUsername(username);
+    }
+}
 
 
